@@ -25,7 +25,7 @@ public class Brief {
 		  return "Sehr geehrter Herr";
 	  }
 	  else {
-		  return "Sehr geehrtee Frau";
+		  return "Sehr geehrte Frau";
 	  }
   }
   

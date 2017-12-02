@@ -3,57 +3,83 @@ import java.util.Calendar;
 
 /**
  * Diese Klasse implementiert einen Briefdrucker
- * Darf nicht verändert werden, falls sich die Druckstategie verändert.
  * 
- * @author tebe
+ * Hiermit hat der Drucker ein Modul für jeder der Druckkombinationen:
+ * 
+ * 1. Einen einzelnen Druck im Standard
+ * 2. Einen einzelnen Druck im Fensterformat
+ * 3. Einen Seriendruck im Standard
+ * 4. Einen Seriendruck im Fensterformat
+ * 
+ * 
+ * @author tebe, fabio jaenecke, daniellerch
+ * @version 1.1
  */
 public class Briefdrucker {
-	private ArrayList<Brief> briefe = new ArrayList<>();
+	private ArrayList<Brief> briefe = new ArrayList<Brief>();
 	private Brief einzelBrief;
 	
-	public Briefdrucker(ArrayList<Brief> briefe) {
-		this.briefe = briefe;
-	}
-	
-	public Briefdrucker(Brief brief) {
+	/**
+	 * Ermöglicht das Aufsetzten eines Einzeldrucks. Es muss zwischen StandardBriefdruckStrategie
+	 * und FensterBriefdruckStrategie ausgewählt werden.
+	 * 
+	 * @param brief Ein einzelner Brief der Klasse Brief.
+	 * @param istFensterBriefDruck Wenn True, dann FensterBriefdruckStrategie, wenn False dann StandardBriefdruckStrategie.
+	 */
+	public Briefdrucker(Brief brief, boolean istFensterBriefDruck) {
 		einzelBrief = brief;
-	}
-  
-	public void serieDruck () {
-		for (Brief brief : briefe) {
-			einzelBrief = brief;
-			druckeBrief();
+		if (!istFensterBriefDruck) {
+			Briefdruckstrategie briefdruckstrategie = new StandardBriefdruckStrategie(brief);
+			briefdruckstrategie.druckeBrief();
+		} else {
+			Briefdruckstrategie briefdruckstrategie = new FensterBriefdruckStrategie(brief);
+			briefdruckstrategie.druckeBrief();
+		}
+	}	
+	
+	/**
+	 * Ermöglicht das Aufsetzten von Serienbriefen. Es muss zwischen StandardBriefdruckStrategie
+	 * und FensterBriefdruckStrategie ausgewählt werden.
+	 * 
+	 * @param briefe Ein SerienBrief der Klasse Brief.
+	 * @param istFensterBriefDruck Wenn True, dann FensterBriefdruckStrategie, wenn False dann StandardBriefdruckStrategie.
+	 */
+	public Briefdrucker(ArrayList<Brief> briefe, boolean istFensterBriefDruck) {
+		this.briefe = briefe;
+		if (!istFensterBriefDruck) {
+			Briefdruckstrategie briefdruckstrategie = new StandardBriefdruckStrategie(briefe);
+			briefdruckstrategie.serienDruck();
+		} else {
+			Briefdruckstrategie briefdruckstrategie = new FensterBriefdruckStrategie(briefe);
+			briefdruckstrategie.serienDruck();
 		}
 	}
-	public void druckeBrief () {
-		Adresse sender = einzelBrief.getSender();
-		Adresse empfaenger = einzelBrief.getEmpfaenger();
-		Inhalt inhalt = einzelBrief.getInhalt();
-		System.out.println(sender.getVorname());
-		System.out.println(sender.getNachname());
-		System.out.println(sender.getStrasse() + " " + sender.getHausnummer());
-		System.out.println(sender.getPlz() + " " + sender.getOrt());
-		System.out.println();
-		System.out.println();
-		System.out.println(empfaenger.getVorname());
-		System.out.println(empfaenger.getNachname());
-		System.out.println(empfaenger.getStrasse() + " " + empfaenger.getHausnummer());
-		System.out.println(empfaenger.getPlz() + " " + empfaenger.getOrt());
-		System.out.println();
-		System.out.println(inhalt.getDatum().getTime());
-		System.out.println();
-		System.out.println(inhalt.getTitel());
-		System.out.println();
-		System.out.println(einzelBrief.generateAnrede() + " " + empfaenger.getNachname());
-		System.out.println();
-		System.out.println(inhalt.getText());
-		System.out.println();
-		System.out.println("Freundliche Grüsse");
-		System.out.println(sender.getVorname() + " " + sender.getNachname());
-		System.out.println();
-		System.out.println("Dieses Schreiben ist gültig ohne Unterschrift");
-		System.out.println();
-		System.out.println();	
+
+	/**
+	 * @return the briefe bei Serienbriefen
+	 */
+	public ArrayList<Brief> getBriefe() {
+		return briefe;
 	}
-	
+
+	/**
+	 * @param briefe the briefe to set
+	 */
+	public void setBriefe(ArrayList<Brief> briefe) {
+		this.briefe = briefe;
+	}
+
+	/**
+	 * @return the einzelBrief bei Einzelbriefen
+	 */
+	public Brief getEinzelBrief() {
+		return einzelBrief;
+	}
+
+	/**
+	 * @param einzelBrief the einzelBrief to set
+	 */
+	public void setEinzelBrief(Brief einzelBrief) {
+		this.einzelBrief = einzelBrief;
+	}
 }

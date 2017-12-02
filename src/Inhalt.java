@@ -9,7 +9,7 @@ import java.util.Calendar;
 public class Inhalt {
   private Calendar datum;
   private String titel;
-  private String anrede;
+  private String anrede; // gets generated automatically based on the gender.
   private String text;
 
 	/**
