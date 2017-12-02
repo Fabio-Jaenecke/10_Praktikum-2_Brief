@@ -19,12 +19,13 @@ public class Inhalt {
 	 * @param anrede Die Anrede des Inhalts
 	 * @param text Der Text des Inhalts
 	 */
-	public Inhalt(Calendar datum, String titel, String anrede, String text) {
+	public Inhalt(Calendar datum, String titel, /*String anrede,*/ String text) {
 		this.datum = datum;
 		this.titel = titel;
-		this.anrede = anrede;
+//		this.anrede = anrede; //gets generated
 		this.text = text;
 	}
+
 
   /**
    * Liefert das Datum zurueck.
@@ -45,11 +46,11 @@ public class Inhalt {
 	/**
 	 * Liefert die Anrede zurueck.
 	 * @return Die Anrede des Inhalts
-	 */
+	 
 	public String getAnrede() {
 		return anrede;
 	}
-
+    */
   /**
   * Liefert den Text zurueck.
   * @return Der Text des Inhalts

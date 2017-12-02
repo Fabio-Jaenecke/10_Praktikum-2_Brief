@@ -20,6 +20,15 @@ public class Brief {
     this.inhalt = inhalt;
   }
 
+  public String generateAnrede() {
+	  if (empfaenger.isMale()) {
+		  return "Sehr geehrter Herr";
+	  }
+	  else {
+		  return "Sehr geehrtee Frau";
+	  }
+  }
+  
   /**
    * Liefert den Sender des Briefs.
    * @return Der Sender des Briefs

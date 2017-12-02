@@ -4,6 +4,7 @@
  * @author tebe
  */
 public class Adresse {
+  private String geschlecht;
   private String name;
   private String vorname;
   private String strasse;
@@ -20,8 +21,10 @@ public class Adresse {
    * @param plz Die Postleitzahl
    * @param ort Der Ort
    */
-  public Adresse(String vorname, String name, String strasse,
-      int hausnummer, int plz, String ort) {
+  public Adresse(String geschlecht, String vorname, String name, String strasse,
+      int hausnummer, int plz, String ort) {  
+	this.geschlecht = geschlecht;
+	isMale();
     this.name = name;
     this.vorname = vorname;
     this.strasse = strasse;
@@ -29,7 +32,28 @@ public class Adresse {
     this.ort = ort;
     this.plz = plz;
   }
-
+ 
+  /**Decides whether the recipient is of male gender of not
+   *    * 
+ * @return true if the gender is male
+ */
+  public boolean isMale() {
+	  if (geschlecht.equals("Herr")) {
+		  return true;
+	  }
+	  else {
+		  return false;
+	  }
+  }
+  
+  /**
+   * Liefert das Geschlecht.
+   * @return Das Geschlecht
+   */
+  public String getGeschlecht() {
+    return geschlecht;
+  }
+  
   /**
    * Liefert den Nachnamen.
    * @return Der Nachname
